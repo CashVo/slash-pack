@@ -62,7 +62,7 @@ def render_help_plain() -> str:
     lines.append("  - /commands only run inside git repos that contain utils/slash/shim.py")
     lines.append("  - SLASH_HOME points to the canonical slash pack location")
     lines.append("")
-    return "\\n".join(lines)
+    return "\n".join(lines)
 
 def print_help() -> None:
     reg = load_registry()
@@ -109,7 +109,7 @@ def print_help() -> None:
                 for o in opts:
                     lines.append(_fmt_option_plain(o, False))
             else:
-                lines.append("[bold]Options[/bold]\\n  [dim](none)[/dim]")
+                lines.append("[bold]Options[/bold]\n  [dim](none)[/dim]")
 
             if ex:
                 lines.append("")

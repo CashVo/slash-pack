@@ -1,39 +1,122 @@
-﻿{
-  "version": 1,
-  "commands": {
-    "help": {
-      "summary": "Show slash command help and examples.",
-      "options": [],
-      "examples": ["/help"]
-    },
-    "merge-branches": {
-      "summary": "Merge branches into main in order. If --branches omitted, defaults to current branch.",
-      "options": [
-        {"name":"--remote","type":"str","default":"origin"},
-        {"name":"--main","type":"str","default":"main"},
-        {"name":"--branches","type":"list","nargs":"*","default":"<current-branch>"},
-        {"name":"--push-first","type":"flag"},
-        {"name":"--no-tests","type":"flag"},
-        {"name":"--dry-run","type":"flag"}
-      ],
-      "examples": [
-        "/merge-branches",
-        "/merge-branches --dry-run",
-        "/merge-branches --branches chunk002 chunk3-warden chunk4-identity",
-        "/merge-branches --push-first --no-tests"
-      ]
-    },
-    "new-slash-shim": {
-      "summary": "Create/update utils/slash/shim.py in a git repo so /commands are enabled in that repo.",
-      "options": [
-        {"name":"--force","type":"flag"},
-        {"name":"--repo","type":"str","default":null}
-      ],
-      "examples": [
-        "/new-slash-shim",
-        "/new-slash-shim --repo <repo-path>",
-        "/new-slash-shim --repo <repo-path> --force"
-      ]
-    }
-  }
+{
+    "version":  1,
+    "commands":  {
+                     "help":  {
+                                  "summary":  "Show slash command help and examples.",
+                                  "options":  [
+
+                                              ],
+                                  "examples":  [
+                                                   "/help"
+                                               ]
+                              },
+                     "merge-branches":  {
+                                            "summary":  "Merge branches into main in order. If --branches omitted, defaults to current branch.",
+                                            "options":  [
+                                                            {
+                                                                "name":  "--remote",
+                                                                "type":  "str",
+                                                                "default":  "origin"
+                                                            },
+                                                            {
+                                                                "name":  "--main",
+                                                                "type":  "str",
+                                                                "default":  "main"
+                                                            },
+                                                            {
+                                                                "name":  "--branches",
+                                                                "type":  "list",
+                                                                "nargs":  "*",
+                                                                "default":  "\u003ccurrent-branch\u003e"
+                                                            },
+                                                            {
+                                                                "name":  "--push-first",
+                                                                "type":  "flag"
+                                                            },
+                                                            {
+                                                                "name":  "--no-tests",
+                                                                "type":  "flag"
+                                                            },
+                                                            {
+                                                                "name":  "--dry-run",
+                                                                "type":  "flag"
+                                                            }
+                                                        ],
+                                            "examples":  [
+                                                             "/merge-branches",
+                                                             "/merge-branches --dry-run",
+                                                             "/merge-branches --branches chunk002 chunk3-warden chunk4-identity",
+                                                             "/merge-branches --push-first --no-tests"
+                                                         ]
+                                        },
+                     "new-slash-shim":  {
+                                            "summary":  "Create/update utils/slash/shim.py in a git repo so /commands are enabled in that repo.",
+                                            "options":  [
+                                                            {
+                                                                "name":  "--force",
+                                                                "type":  "flag"
+                                                            },
+                                                            {
+                                                                "name":  "--repo",
+                                                                "type":  "str",
+                                                                "default":  null
+                                                            }
+                                                        ],
+                                            "examples":  [
+                                                             "/new-slash-shim",
+                                                             "/new-slash-shim --repo \u003crepo-path\u003e",
+                                                             "/new-slash-shim --repo \u003crepo-path\u003e --force"
+                                                         ]
+                                        },
+                     "gcommit":  {
+                                     "summary":  "Stage all changes and commit with a message.",
+                                     "options":  [
+                                                     {
+                                                         "name":  "\u003cmessage\u003e",
+                                                         "type":  "str",
+                                                         "default":  null
+                                                     }
+                                                 ],
+                                     "examples":  [
+                                                      "/gcommit \"fix: update docs\"",
+                                                      "/gcommit \"wip: checkpoint\""
+                                                  ]
+                                 },
+                     "g2branch":  {
+                                      "summary":  "Checkout a branch (requires clean worktree).",
+                                      "options":  [
+                                                      {
+                                                          "name":  "\u003cbranch\u003e",
+                                                          "type":  "str",
+                                                          "default":  null
+                                                      }
+                                                  ],
+                                      "examples":  [
+                                                       "/g2branch main",
+                                                       "/g2branch feature/foo"
+                                                   ]
+                                  },
+                     "greset":  {
+                                    "summary":  "Hard reset the current branch to another branch (default: main). Fetches remote first; requires clean worktree.",
+                                    "options":  [
+                                                    {
+                                                        "name":  "[branch]",
+                                                        "type":  "str",
+                                                        "default":  "main"
+                                                    },
+                                                    {
+                                                        "name":  "--remote",
+                                                        "type":  "str",
+                                                        "default":  "origin"
+                                                    }
+                                                ],
+                                    "examples":  [
+                                                     "/greset",
+                                                     "/greset main",
+                                                     "/greset develop",
+                                                     "/greset origin/main",
+                                                     "/greset main --remote origin"
+                                                 ]
+                                }
+                 }
 }
