@@ -189,11 +189,11 @@ def render_help_plain() -> str:
 
         lines.append("")
 
-    lines.append("Notes")
-    lines.append("  - /commands only run inside git repos that contain utils/slash/shim.py")
-    lines.append("  - SLASH_HOME points to the canonical slash pack location")
+    lines.append("NOTES:")
+    lines.append("  * /commands only run inside git repos that contain utils/slash/shim.py")
+    lines.append("  * SLASH_HOME points to the canonical slash pack location")
     lines.append("")
-    return "\\n".join(lines)
+    return "\n".join(lines)
 
 def print_help() -> None:
     reg = load_registry()

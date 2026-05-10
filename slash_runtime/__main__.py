@@ -9,6 +9,10 @@ from .commands.help_cmd import print_help
 from .commands.merge_branches import Opts as MergeOpts, run as run_merge
 from .commands.new_slash_shim import run as run_new_shim
 
+
+from .commands.gcommit import Opts as GCommitOpts, run as run_gcommit
+from .commands.g2branch import Opts as G2BranchOpts, run as run_g2branch
+from .commands.greset import Opts as GResetOpts, run as run_greset
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="slash", add_help=False)
     sub = p.add_subparsers(dest="cmd")
@@ -27,6 +31,17 @@ def build_parser() -> argparse.ArgumentParser:
     n.add_argument("--force", action="store_true", default=False)
     n.add_argument("--repo", default=None)
 
+    gc = sub.add_parser("gcommit")
+    gc.add_argument("message", nargs="?", default="")
+
+    g2 = sub.add_parser("g2branch")
+    g2.add_argument("branch", nargs="?", default="")
+
+    gr = sub.add_parser("greset")
+    gr.add_argument("target", nargs="?", default="main")
+    gr.add_argument("--remote", default="origin")
+    
+
     return p
 
 def normalize(argv: list[str]) -> list[str]:
@@ -39,11 +54,12 @@ def normalize(argv: list[str]) -> list[str]:
 def main(argv: list[str]) -> int:
     _ = load_registry()  # validates registry exists + JSON parses
     parser = build_parser()
-
+    
     argv = normalize(argv)
     args = parser.parse_args(argv)
 
     if args.cmd in (None, "help"):
+        print("DEBUG: /help detected")
         print_help()
         return 0
 
@@ -74,9 +90,21 @@ def main(argv: list[str]) -> int:
         repo_path = Path(args.repo).resolve() if args.repo else None
         run_new_shim(Path("."), force=bool(args.force), repo=repo_path)
         return 0
+ 
+    if args.cmd == "gcommit":
+        opts = GCommitOpts(message=args.message)
+        run_gcommit(Path("."), opts)
+        return 0
 
-    print_help()
-    return 2
+    if args.cmd == "g2branch":
+        opts = G2BranchOpts(branch=args.branch)
+        run_g2branch(Path("."), opts)
+        return 0
+
+    if args.cmd == "greset":
+        opts = GResetOpts(target=args.target, remote=args.remote)
+        run_greset(Path("."), opts)
+        return 0
 
 if __name__ == "__main__":
     try:
